@@ -19,7 +19,7 @@ import dagger.hilt.android.AndroidEntryPoint
 @Composable
 fun HomeScreen(modifier: Modifier, viewModel: HomeViewModel = viewModel()) {
     val lazyNowPlayingPagingItems = viewModel.nowPlaying.collectAsLazyPagingItems()
-    LazyVerticalGrid(columns = GridCells.Fixed(2),modifier =modifier) {
+    LazyVerticalGrid(columns = GridCells.Fixed(1),modifier =modifier) {
         items(lazyNowPlayingPagingItems.itemCount) { index ->
             lazyNowPlayingPagingItems[index]?.let { movie ->
                 MovieItem(movie)

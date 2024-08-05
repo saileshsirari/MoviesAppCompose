@@ -1,14 +1,18 @@
+
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
+    id("dagger.hilt.android.plugin")
+    id("com.google.devtools.ksp")
+    id("kotlinx-serialization")
 }
 
 android {
-    namespace = "apps.sai.com.movieapp"
+    namespace = "apps.sai.com.movieapp.compose"
     compileSdk = 34
 
     defaultConfig {
-        applicationId = "apps.sai.com.movieapp"
+        applicationId = "apps.sai.com.movieapp.compose"
         minSdk = 24
         targetSdk = 34
         versionCode = 1
@@ -50,7 +54,6 @@ android {
 }
 
 dependencies {
-
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
     implementation(libs.androidx.activity.compose)
@@ -59,11 +62,33 @@ dependencies {
     implementation(libs.androidx.ui.graphics)
     implementation(libs.androidx.ui.tooling.preview)
     implementation(libs.androidx.material3)
+    implementation(libs.kotlinx.serialization.json)
+    implementation(libs.androidx.room.runtime)
+    annotationProcessor(libs.androidx.room.compiler)
+    implementation(libs.androidx.room.paging)
+    implementation (libs.hilt.android)
+    implementation(libs.androidx.paging.runtime.ktx)
+    implementation(libs.androidx.paging.compose)
+    implementation (libs.glide)
+    implementation( libs.glide.compose)
+    implementation ("com.google.dagger:hilt-android-gradle-plugin:2.51.1")
+    // kapt("androidx.room:room-compiler:$roomVersion")
+    implementation(libs.androidx.room.ktx)
+    implementation(libs.retrofit2.kotlinx.serialization.converter)
+    implementation(libs.retrofit)
+    implementation(libs.okhttp)
+    implementation (libs.logging.interceptor)
+    implementation (libs.gson)
+    implementation(libs.androidx.lifecycle.viewmodel.compose)
+    ksp(libs.androidx.room.compiler)
     testImplementation(libs.junit)
+    ksp (libs.dagger.compiler) // Dagger compiler
+    ksp (libs.hilt.compiler)   // Hilt compiler
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
     androidTestImplementation(platform(libs.androidx.compose.bom))
     androidTestImplementation(libs.androidx.ui.test.junit4)
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
+
 }

@@ -1,4 +1,4 @@
-package apps.sai.com.movieapp
+package apps.sai.com.compose
 
 import org.junit.Test
 

@@ -1,4 +1,4 @@
-package apps.sai.com.movieapp
+package apps.sai.com.compose
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -11,8 +11,11 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import apps.sai.com.movieapp.ui.theme.MoviesAppComposeTheme
+import apps.sai.com.compose.ui.HomeScreen
+import apps.sai.com.compose.ui.theme.MoviesAppComposeTheme
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -20,10 +23,7 @@ class MainActivity : ComponentActivity() {
         setContent {
             MoviesAppComposeTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    Greeting(
-                        name = "Android",
-                        modifier = Modifier.padding(innerPadding)
-                    )
+                   HomeScreen(modifier = Modifier.padding(innerPadding))
                 }
             }
         }

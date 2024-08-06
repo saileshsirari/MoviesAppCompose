@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">Movies App Compose</string>
+    <string name="release_date">Release Date</string>
+    <string name="language">Language</string>
+    <string name="ratings">Rating</string>
+    <string name="votes">Votes</string>
 </resources>

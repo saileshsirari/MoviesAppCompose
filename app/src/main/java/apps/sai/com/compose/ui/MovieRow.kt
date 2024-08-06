@@ -81,7 +81,7 @@ fun MoviePoster(movie: Movie, modifier: Modifier) {
 }
 
 @Composable
-fun MovieItem(movie: Movie, modifier: Modifier = Modifier, onClick: () -> Unit = {} ) {
+fun MovieListItem(movie: Movie, modifier: Modifier = Modifier, onClick: () -> Unit = {} ) {
     Card(
         onClick = onClick,
         modifier = modifier.padding(2.dp),
@@ -130,7 +130,7 @@ fun MovieItemPreview() {
 
         )
     movie.spokenLanguagesFormatted = "English, German"
-    MovieItem(
+    MovieListItem(
         movie = movie,
         modifier = Modifier
             .widthIn(max = 700.dp)

@@ -4,4 +4,14 @@
     <string name="language">Language</string>
     <string name="ratings">Rating</string>
     <string name="votes">Votes</string>
+    <string name="tab_now_playing">Now Playing</string>
+    <string name="tab_poular">Popular</string>
+    <string name="tab_upcoming">Upcoming</string>
+    <string name="tab_top_rated">Top Rated</string>
+    <string name="navigation_drawer">Navigation Drawer</string>
+    <string name="navigation_rail">Navigation Rail</string>
+    <string name="navigation_bottom">Navigation Bottom</string>
+    <string name="navigation_back">Back</string>
+    <string name="details_screen">Details Screen</string>
+    <string name="logo">Logo</string>
 </resources>

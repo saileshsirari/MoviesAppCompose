@@ -10,4 +10,5 @@
     <dimen name="topbar_logo_padding_start">4dp</dimen>
     <dimen name="topbar_padding_vertical">8dp</dimen>
     <dimen name="list_only_horizontal_padding">16dp</dimen>
+    <dimen name="grid_spacing">8dp</dimen>
 </resources>

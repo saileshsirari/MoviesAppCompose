@@ -17,13 +17,11 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.safeDrawing
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentWidth
-import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.grid.GridCells
+import androidx.compose.foundation.lazy.grid.GridItemSpan
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
-import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AirlineStops
 import androidx.compose.material.icons.filled.Groups
@@ -50,6 +48,7 @@ import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.paging.LoadState
 import androidx.paging.compose.collectAsLazyPagingItems
 import apps.sai.com.compose.model.MovieType
 import apps.sai.com.movieapp.compose.R
@@ -223,10 +222,14 @@ fun ListOnlyContent(
 
     val movies = uiState.currentSelectedMovies
     val lazyNowPlayingPagingItems = movies.collectAsLazyPagingItems()
-    LazyVerticalGrid(columns = GridCells.Fixed(1), contentPadding = WindowInsets.safeDrawing.asPaddingValues(),
+
+
+    LazyVerticalGrid(
+        columns = GridCells.Fixed(1), contentPadding = WindowInsets.safeDrawing.asPaddingValues(),
         verticalArrangement = Arrangement.spacedBy(
             dimensionResource(R.dimen.list_item_vertical_spacing)
-        ), modifier = modifier) {
+        ), modifier = modifier
+    ) {
         item {
             HomeTopBar(
                 modifier = Modifier
@@ -239,6 +242,29 @@ fun ListOnlyContent(
                 MovieListItem(movie, onClick = {
                     onCardPressed(movie)
                 })
+            }
+        }
+        lazyNowPlayingPagingItems.apply {
+            when (loadState.append) {
+                is LoadState.Loading -> {
+                    item(span = { GridItemSpan(maxLineSpan) }) {
+                        LoadingRow(modifier = Modifier.padding(vertical = dimensionResource(R.dimen.grid_spacing)))
+                    }
+                }
+
+                is LoadState.Error -> {
+                    val message =
+                        (loadState.append as? LoadState.Error)?.error?.message ?: return@apply
+
+                    item(span = { GridItemSpan(maxLineSpan) }) {
+                        ErrorScreen(
+                            message = message,
+                            modifier = Modifier.padding(vertical = dimensionResource(R.dimen.grid_spacing)),
+                            refresh = { retry() })
+                    }
+                }
+
+                else -> {}
             }
         }
     }

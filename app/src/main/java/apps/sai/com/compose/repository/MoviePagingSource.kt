@@ -1,6 +1,5 @@
 package apps.sai.com.compose.repository
 
-import androidx.lifecycle.viewModelScope
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
 import apps.sai.com.compose.model.MovieType
@@ -8,9 +7,7 @@ import apps.sai.com.movieapp.api.MovieApi
 import apps.sai.com.movieapp.data.GenreResponse
 import apps.sai.com.movieapp.data.Movie
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.flow
-import kotlinx.coroutines.flow.shareIn
 import retrofit2.HttpException
 import java.io.IOException
 
@@ -35,23 +32,17 @@ class MoviePagingSource(
         movieApi.genres()
     }
 
-   /* suspend fun genreResponse()  = lazy{
-        movieApi.genres().genres
-    }*/
-
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, Movie> {
         val position = params.key ?: STARTING_PAGE_INDEX
         return try {
 
-            /* val response = when (movieType) {
-                 MovieType.NOW_PLAYING -> movieApi.nowPlaying(position)
-                 MovieType.POPULAR -> movieApi.popular(position)
-                 MovieType.TOP_RATED -> movieApi.topRated(position)
-                 MovieType.UPCOMING -> movieApi.upcoming(position)
-                 MovieType.SEARCH -> movieApi.search(position, query)
-             }*/
-
-            val response = movieApi.nowPlaying(position)
+            val response = when (movieType) {
+                MovieType.NOW_PLAYING -> movieApi.nowPlaying(position)
+                MovieType.POPULAR -> movieApi.popular(position)
+                MovieType.TOP_RATED -> movieApi.topRated(position)
+                MovieType.UPCOMING -> movieApi.upcoming(position)
+                MovieType.SEARCH -> movieApi.search(position, query)
+            }
             val items = response.results
             val genreResponse = movieApi.genres().genres
             items.forEach { movie ->

@@ -3,12 +3,20 @@ package apps.sai.com.compose.ui
 import MovieContentType
 import MovieNavigationType
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
+import androidx.compose.material3.CircularProgressIndicator
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.windowsizeclass.WindowWidthSizeClass
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 
 
@@ -43,15 +51,15 @@ fun MovieApp(
             contentType = MovieContentType.LIST_ONLY
         }
     }
-    if(movieUiState.value is MovieUiState.Success) {
-        MovieHomeScreen(navigationType, contentType, {
-
+    if (movieUiState.value is MovieUiState.Success) {
+        MovieHomeScreen(navigationType, contentType, onTabPressed = {
+            viewModel.updateCurrentMovieType(it)
         }, {
 
         }, {
 
         }, movieUiState.value as MovieUiState.Success, modifier)
-    }else if(movieUiState.value is MovieUiState.Loading){
+    } else if (movieUiState.value is MovieUiState.Loading) {
         LoadingScreen(modifier)
     }
 
@@ -60,4 +68,10 @@ fun MovieApp(
 @Composable
 fun LoadingScreen(modifier: Modifier) {
 
+    CircularProgressIndicator(
+        modifier = Modifier.width(64.dp),
+        color = MaterialTheme.colorScheme.secondary,
+        trackColor = MaterialTheme.colorScheme.surfaceVariant,
+    )
 }
+
